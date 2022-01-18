@@ -143,8 +143,8 @@ public Action OnDoorStopMoving(const char[] output, int door, int activator, flo
 
 	if (ghostDoor[door])
 	{
-		PrintToServer("Ghost door stopped moving, restoring collision %.f seconds from now..", 
-			cvGhostTime.FloatValue);
+		// PrintToServer("Ghost door stopped moving, restoring collision %.f seconds from now..", 
+		//	cvGhostTime.FloatValue);
 
 		timerUnghost[door] = CreateTimer(cvGhostTime.FloatValue, Timer_BeginUndoBecomeGhost, 
 			EntIndexToEntRef(door), TIMER_FLAG_NO_MAPCHANGE);
@@ -181,7 +181,6 @@ void TryUndoBecomeGhost(int door)
 
 Action Timer_TickUndoBecomeGhost(Handle timer, int doorRef)
 {
-	PrintToServer("IsDoorTouchingPlayers %d", IsDoorTouchingPlayers(doorRef));
 	int door = EntRefToEntIndex(doorRef);
 	if (door != -1 && !IsDoorTouchingPlayers(door)) 
 	{
