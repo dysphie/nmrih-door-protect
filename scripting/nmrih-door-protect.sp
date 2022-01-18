@@ -1,5 +1,3 @@
-// If a door has been rotating for twice the expected time, assume it to be stuck
-
 #include <sdktools>
 #include <sdkhooks>
 
