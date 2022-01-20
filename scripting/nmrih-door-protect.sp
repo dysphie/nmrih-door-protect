@@ -3,6 +3,7 @@
 #include <sdktools>
 #include <sdkhooks>
 
+#define MAXPLAYERS_NMRIH 9
 #define MAXENTITIES 2048
 #define FSOLID_NOT_SOLID 0x0004
 
@@ -39,7 +40,7 @@ bool ghostDoor[MAXENTITIES+1];
 int numDirChanges[MAXENTITIES+1];
 
 // Next time the player is allowed to +use a door
-float nextDoorUseTime[MAXPLAYERS+1] = {-1.0, ...};
+float nextDoorUseTime[MAXENTITIES+1][MAXPLAYERS_NMRIH+1];
 
 // SDKCall handles
 Handle fnCollisionRulesChanged;
@@ -57,7 +58,7 @@ public Plugin myinfo = {
     name        = "[NMRiH] Door Grief Protection",
     author      = "Dysphie",
     description = "Prevents doors from being blocked by players, zombies and props",
-    version     = "1.0.0",
+    version     = "1.0.1",
     url         = "https://github.com/dysphie/nmrih-door-protect"
 };
 
@@ -132,7 +133,8 @@ public void OnPluginStart()
 // Reset +use cooldown for a given client index
 public void OnClientConnected(int client)
 {
-	nextDoorUseTime[client] = -1.0;
+	for (int i; i < sizeof(nextDoorUseTime); i++)
+		nextDoorUseTime[i][client] = 0.0;
 }
 
 // When a door stops moving, we check whether it's a ghost door
@@ -276,6 +278,9 @@ public void OnEntityCreated(int entity, const char[] classname)
 void OnDoorCreated(int door, bool propbased)
 {
 	// Clear leftover data
+	for (int i = 1; i <= MaxClients; i++)
+		nextDoorUseTime[door][i] = 0.0;
+
 	timerUnghost[door] = null;
 	timerCheckTravelTime[door] = null;
 	timerUnghostExtended[door] = null;
@@ -299,22 +304,22 @@ void OnDoorCreated(int door, bool propbased)
 // TODO: Decrease numDirChanges count after some time
 Action OnDoorUse(int door, int activator, int caller, UseType type, float value)
 {
-	if (ghostDoor[door]) // this should never happen?
+	if (!IsValidEdict(door) || ghostDoor[door])
 		return Plugin_Handled;
-
+	
 	float curTime = GetGameTime();
 	if (IsPlayer(caller))
 	{
-		if (curTime < nextDoorUseTime[caller])
+		if (curTime < nextDoorUseTime[door][caller])
 			return Plugin_Handled;
-
+		
 		// A rate limit is required limit for "OnOpen" output to fire
 		// if the player spams +use on a door every frame
 		float useRate = cvUseRate.FloatValue;
 		if (useRate < 0.1)
 			useRate = 0.1;
 
-		nextDoorUseTime[caller] = curTime + useRate;
+		nextDoorUseTime[door][caller] = curTime + useRate;
 	}
 
 	if (IsDoorMoving(door))
