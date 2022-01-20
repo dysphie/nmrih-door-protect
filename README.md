@@ -7,7 +7,7 @@ Prevents doors from being blocked by:
 - NPCs closing them
 - Weapons and other physics props
 
-When a door is jammed it will briefly appear translucent and disable its collisions, allowing players to walk right thru it.
+When a door is jammed it will briefly appear translucent and allow players to walk thru it.
 
 https://user-images.githubusercontent.com/11559683/149871985-8cf566ad-a1a2-43bd-9a7e-f8c459272c92.mp4
 
