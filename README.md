@@ -1,5 +1,7 @@
 # [NMRiH] Door Grief Protection
 
+[AlliedModders thread](https://forums.alliedmods.net/showthread.php?p=2768708)
+
 Prevents doors from being blocked by:
 
 - Players standing in the way
