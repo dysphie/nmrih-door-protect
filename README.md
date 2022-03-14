@@ -13,10 +13,10 @@ https://user-images.githubusercontent.com/11559683/149871985-8cf566ad-a1a2-43bd-
 
 
 ## Installation
-0. (Optional) Update to Sourcemod 1.11.6826 or higher. This is recommended as it fixes some collision problems.
-1. Grab the latest ZIP from [releases](https://github.com/dysphie/nmrih-door-protect/releases)
-2. Extract its contents into `addons/sourcemod`
-3. Refresh your loaded plugins (`sm plugins refresh` or `sm plugins load nmrih-door-protect`)
+1. Update to Sourcemod 1.11.6826 or higher
+2. Grab the latest ZIP from [releases](https://github.com/dysphie/nmrih-door-protect/releases)
+3. Extract its contents into `addons/sourcemod`
+4. Refresh your loaded plugins (`sm plugins refresh` or `sm plugins load nmrih-door-protect`)
 
 ## CVars
 
