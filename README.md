@@ -1,3 +1,6 @@
+> [!WARNING]
+> This plugin is unmaintained since Torn Banner's acquisition of the game.
+
 # [NMRiH] Door Grief Protection
 
 [AlliedModders thread](https://forums.alliedmods.net/showthread.php?p=2768708)
